@@ -4,6 +4,8 @@ const express = require("express");
 
 require('./config/database');
 
+//controoler imprt
+const authCtrl =require("./controllers/auth.js");
 const app = express();
 
 const mongoose = require("mongoose");
@@ -24,7 +26,11 @@ app.use(methodOverride("_method"));
 app.use(morgan('dev'));
 
 //Routes
+app.use('/auth',authCtrl);
 
+app.get("/", async (req, res) => {
+    res.render("index.ejs");
+  });
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
